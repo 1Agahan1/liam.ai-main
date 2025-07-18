@@ -1,0 +1,21 @@
+{
+  "word_frequencies": {},
+  "response_feedback": {},
+  "subject_expertise": {},
+  "question_patterns": {},
+  "conversation_history": [
+    {
+      "question": "what is yor name?",
+      "response": "My name is Liam.  How can I help you today?"
+    }
+  ],
+  "learned_responses": {},
+  "context_memory": [],
+  "user_preferences": {},
+  "question_similarity_cache": {},
+  "dynamic_keywords": {},
+  "response_templates": {},
+  "correction_memory": {},
+  "success_patterns": {},
+  "all_keywords": []
+}
