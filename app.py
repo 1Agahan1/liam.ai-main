@@ -119,7 +119,10 @@ def predict():
     # Append user message
     session_obj['messages'].append({'question': user_input})
     # Get AI response
-    response = bot.ask_gemini(user_input)
+    try:
+        response = bot.ask_gemini(user_input)
+    except Exception as e:
+        return jsonify({"message": f"Backend error: {e}", "session_id": session_id}), 500
     # Append AI message
     session_obj['messages'][-1]['response'] = response
     save_all_histories()

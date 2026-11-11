@@ -980,22 +980,17 @@ class EnhancedLearningQABot:
         api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
             return "Gemini API key not found. Please set GEMINI_API_KEY environment variable."
-        import google.generativeai as genai
-        genai.configure(api_key=api_key)
-        system_prompt = (
-            "You are Liam, a chat bot designed to assist users with a wide range of topics. "
-            
-        )
+        from google import genai
+        client = genai.Client(api_key=api_key)
+        system_prompt = "You are Liam, a chat bot designed to assist users with a wide range of topics."
         full_prompt = f"{system_prompt}\n\nUser question: {prompt}"
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        response = model.generate_content(full_prompt)
-        # The latest google-generativeai returns response.text or response.candidates[0].text
-        if hasattr(response, 'text'):
+        response = client.models.generate_content(
+            model="gemini-3.5-flash-lite",
+            contents=full_prompt
+        )
+        if response.text:
             return response.text.strip()
-        elif hasattr(response, 'candidates') and response.candidates:
-            return response.candidates[0].text.strip()
-        else:
-            return str(response)
+        return str(response)
 
     def chat(self):
         """Enhanced chat interface with learning commands and memory."""
