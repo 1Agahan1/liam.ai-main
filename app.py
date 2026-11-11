@@ -1,5 +1,8 @@
 import uuid
 import json
+import os
+import shutil
+import tempfile
 from flask import Flask, request, jsonify, render_template_string, session
 # Import the AI bot class
 from import_re import EnhancedLearningQABot
@@ -12,7 +15,13 @@ app.secret_key = 'AIzaSyB02IO2JL8k1je861YYoE0ujVZQ_TfFeiQ'  # Replace with a sec
 bot = EnhancedLearningQABot()
 
 # --- User-specific persistent histories ---
-USER_HISTORY_FILE = 'user_histories.json'
+# Vercel's app directory is read-only; only /tmp is writable there.
+if os.environ.get('VERCEL'):
+    USER_HISTORY_FILE = os.path.join(tempfile.gettempdir(), 'user_histories.json')
+    if not os.path.exists(USER_HISTORY_FILE) and os.path.exists('user_histories.json'):
+        shutil.copyfile('user_histories.json', USER_HISTORY_FILE)
+else:
+    USER_HISTORY_FILE = 'user_histories.json'
 try:
     with open(USER_HISTORY_FILE, 'r') as f:
         all_user_histories = json.load(f)

@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 from collections import defaultdict, Counter
 import math
 from typing import Dict, List, Tuple, Optional
-import google.generativeai as genai
 import threading
 
 class EnhancedLearningQABot:
