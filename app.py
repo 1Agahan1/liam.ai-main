@@ -9,7 +9,7 @@ from import_re import EnhancedLearningQABot
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'AIzaSyB02IO2JL8k1je861YYoE0ujVZQ_TfFeiQ'  # Replace with a secure random key in production
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', os.urandom(24).hex())
 
 # Instantiate the bot once
 bot = EnhancedLearningQABot()
